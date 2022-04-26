@@ -1,14 +1,11 @@
 const router = require('express').Router();
-const multer = require('multer');
-const { storage } = require('../utils');
 const users = require('./users');
 const posts = require('./posts');
-const comments = require('./comments');
 const likes = require('./likes');
 const favorites = require('./favorites');
 const { authController } = require('../controllers');
 
-router.post('/register', multer(storage).single('image'), authController.register);
+router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 

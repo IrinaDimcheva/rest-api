@@ -53,7 +53,6 @@ function login(req, res, next) {
 				return
 			}
 			user = bsonToJson(user);
-			user = removePassword(user);
 
 			const token = utils.jwt.createToken({ id: user._id });
 
@@ -86,7 +85,6 @@ function getProfileInfo(req, res, next) {
 	userModel.findOne({ _id: userId }, { password: 0, __v: 0 }) //finding by Id and returning without password and __v
 		.populate(['posts', 'favorites'])
 		.then(user => {
-			user = removePassword(user);
 			res.status(200).json(user);
 		})
 		.catch(next);
