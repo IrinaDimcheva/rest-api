@@ -53,6 +53,7 @@ function login(req, res, next) {
 				return
 			}
 			user = bsonToJson(user);
+			// user = removePassword(user);
 
 			const token = utils.jwt.createToken({ id: user._id });
 
