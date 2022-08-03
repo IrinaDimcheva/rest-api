@@ -9,9 +9,12 @@ const removePassword = (data) => {
 }
 
 function register(req, res, next) {
-	const { email, username, password, repeatPassword } = req.body;
+	const { username, email, password } = req.body;
+	// const { email, password, address } = req.body;
+	// const data = { email, password };
 
-	return userModel.create({ email, username, password })
+	return userModel.create({ username, email, password })
+		// return userModel.create({ ...data, address })
 		.then((createdUser) => {
 			createdUser = bsonToJson(createdUser);
 			createdUser = removePassword(createdUser);
@@ -22,8 +25,14 @@ function register(req, res, next) {
 			} else {
 				res.cookie(authCookieName, token, { httpOnly: true })
 			}
-			res.status(200)
-				.send(createdUser);
+			res.status(201)
+				// .send(createdUser);
+				.send({
+					username: createdUser.username,
+					_id: createdUser._id,
+					email: createdUser.email,
+					admin: createdUser.isAdmin
+				});
 		})
 		.catch(err => {
 			if (err.name === 'MongoError' && err.code === 11000) {
@@ -63,7 +72,13 @@ function login(req, res, next) {
 				res.cookie(authCookieName, token, { httpOnly: true })
 			}
 			res.status(200)
-				.send(user);
+				// .send(user);
+				.send({
+					username: user.username,
+					_id: user._id,
+					email: user.email,
+					admin: user.isAdmin
+				});
 		})
 		.catch(next);
 }

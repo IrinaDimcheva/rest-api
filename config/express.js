@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const cookieSecret = process.env.COOKIESECRET || 'MyBlogSecret';
+const cookieSecret = process.env.COOKIESECRET || 'MyShopSecret';
 // const { errorHandler } = require('../utils')
 
 module.exports = (app) => {

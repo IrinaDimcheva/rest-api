@@ -4,22 +4,23 @@
   "description": "REST-api for back-end of React project",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
+    "start-": "node .",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BoogyHS/REST-api.git"
+    "url": "git+https://github.com/IrinaDimcheva/REST-api.git"
   },
   "keywords": [
     "rest-api"
   ],
-  "author": "BoogyHS",
+  "author": "Irina Dimcheva",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BoogyHS/REST-api/issues"
+    "url": "https://github.com/IrinaDimcheva/REST-api/issues"
   },
-  "homepage": "https://github.com/BoogyHS/REST-api#readme",
+  "homepage": "https://github.com/IrinaDimcheva/REST-api#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",

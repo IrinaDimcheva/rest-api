@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true,
-		minlength: [5, 'Username should be at least 5 characters'],
+		minlength: [3, 'Username should be at least 3 characters'],
 		maxlength: [25, 'Username shouldn\'t exceed 25 characters'],
 		validate: {
 			validator: function (v) {
@@ -35,19 +35,52 @@ const userSchema = new mongoose.Schema({
 			message: props => `${props.value} must contains only latin letters and digits!`
 		},
 	},
+	isAdmin: {
+		type: Boolean,
+		default: false
+	},
+	// address: {
+	// 	fullName: {
+	// 		type: String,
+	// 		required: true
+	// 	},
+	// 	street: {
+	// 		type: String,
+	// 		required: true
+	// 	},
+	// 	postal: {
+	// 		type: String,
+	// 		minlength: 4,
+	// 		maxlength: 4,
+	// 		required: true
+	// 	},
+	// 	city: {
+	// 		type: String,
+	// 		required: true
+	// 	},
+	// },
+	cart: [{
+		type: ObjectId,
+		ref: 'Product'
+	}],
 	favorites: [{
 		type: ObjectId,
-		ref: "Post"
+		ref: 'Product'
 	}],
-	posts: [{
+	orders: [{
 		type: ObjectId,
-		ref: "Post"
-	}],
-	comments: [{
-		type: ObjectId,
-		ref: "Comment"
+		ref: 'Product'
 	}]
-}, { timestamps: { createdAt: 'created_at' } });
+	// products: [{
+	// 	type: ObjectId,
+	// 	ref: 'Product'
+	// }],
+	// comments: [{
+	// 	type: ObjectId,
+	// 	ref: 'Comment'
+	// }]
+},
+	{ timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {
 	matchPassword: function (password) {
