@@ -59,10 +59,24 @@ const userSchema = new mongoose.Schema({
 	// 		required: true
 	// 	},
 	// },
+	// cart: [{
+	// 	type: ObjectId,
+	// 	ref: 'Cart'
+	// }],
 	cart: [{
-		type: ObjectId,
-		ref: 'Product'
+		productId: {
+			type: ObjectId,
+			ref: 'Product'
+		},
+		amount: {
+			type: Number,
+			default: 1
+		}
 	}],
+	// cart: [{
+	// 	type: ObjectId,
+	// 	ref: 'Product'
+	// }],
 	favorites: [{
 		type: ObjectId,
 		ref: 'Product'

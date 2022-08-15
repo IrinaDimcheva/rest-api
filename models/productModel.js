@@ -5,8 +5,8 @@ const productSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
-		minlength: [5, 'Name should be at least 5 characters'],
-		maxlength: [250, 'Name shouldn\'t exceed 250 characters']
+		minlength: [4, 'Name should be at least 4 characters'],
+		maxlength: [150, 'Name shouldn\'t exceed 150 characters']
 	},
 	imageUrl: {
 		type: String,
@@ -49,7 +49,7 @@ const productSchema = new mongoose.Schema({
 	// 	type: ObjectId,
 	// 	ref: "User"
 	// }],
-	creator: {
+	userId: {
 		type: ObjectId,
 		ref: "User"
 	},
