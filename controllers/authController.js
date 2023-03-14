@@ -9,9 +9,9 @@ const removePassword = (data) => {
 }
 
 function register(req, res, next) {
-	const { email, username, password, repeatPassword } = req.body;
+	const { username, email, password } = req.body;
 
-	return userModel.create({ email, username, password })
+	return userModel.create({ username, email, password })
 		.then((createdUser) => {
 			createdUser = bsonToJson(createdUser);
 			createdUser = removePassword(createdUser);
@@ -22,7 +22,7 @@ function register(req, res, next) {
 			} else {
 				res.cookie(authCookieName, token, { httpOnly: true })
 			}
-			res.status(200)
+			res.status(201)
 				.send(createdUser);
 		})
 		.catch(err => {
@@ -50,12 +50,11 @@ function login(req, res, next) {
 			if (!match) {
 				res.status(401)
 					.send({ message: 'Wrong email or password' });
-				return
+				return;
 			}
 			user = bsonToJson(user);
-			// user = removePassword(user);
 
-			const token = utils.jwt.createToken({ id: user._id });
+			const token = utils.jwt.createToken({ id: user._id, isAdmin: user.admin });
 
 			if (process.env.NODE_ENV === 'production') {
 				res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })

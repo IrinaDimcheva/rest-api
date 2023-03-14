@@ -6,12 +6,14 @@ function auth(redirectUnauthenticated = true) {
 
 	return function (req, res, next) {
 		const token = req.cookies[authCookieName] || '';
+		if (!token) { return next(); }
 		Promise.all([
 			jwt.verifyToken(token),
 			tokenBlacklistModel.findOne({ token })
 		])
 			.then(([data, blacklistedToken]) => {
 				if (blacklistedToken) {
+					res.clearCookie(authCookieName);
 					return Promise.reject(new Error('blacklisted token'));
 				}
 				userModel.findById(data.id)
@@ -29,6 +31,7 @@ function auth(redirectUnauthenticated = true) {
 				if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
 					console.error(err);
 					res
+						.clearCookie(authCookieName)
 						.status(401)
 						.send({ message: "Invalid token!" });
 					return;

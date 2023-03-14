@@ -3,7 +3,7 @@ const auth = require('./auth');
 const errorHandler = require('./errHandler');
 
 module.exports = {
-    jwt,
-    auth,
-    errorHandler
+	jwt,
+	auth,
+	errorHandler,
 }

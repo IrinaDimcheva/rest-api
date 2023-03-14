@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
 	},
 	favorites: [{
 		type: ObjectId,
-		ref: "Post"
+		ref: 'Post'
 	}],
 	posts: [{
 		type: ObjectId,
@@ -45,9 +45,10 @@ const userSchema = new mongoose.Schema({
 	}],
 	comments: [{
 		type: ObjectId,
-		ref: "Comment"
+		ref: 'Comment'
 	}]
-}, { timestamps: { createdAt: 'created_at' } });
+},
+	{ timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {
 	matchPassword: function (password) {

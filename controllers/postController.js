@@ -1,5 +1,5 @@
 const { postModel, userModel, commentModel } = require('../models');
-const { newComment, getComments } = require('./commentController')
+const { getComments } = require('./commentController')
 
 function getPosts(req, res, next) {
 	const title = req.query.title || '';

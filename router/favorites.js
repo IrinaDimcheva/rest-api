@@ -9,4 +9,5 @@ router.get('/', auth(), postController.getFavorites);
 router.post('/add/:postId', auth(), postController.addToFavorites);
 router.delete('/remove/:postId', auth(), postController.removeFromFavorites);
 
+
 module.exports = router;
