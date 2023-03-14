@@ -5,5 +5,5 @@ const commentController = require('./commentController');
 module.exports = {
     authController,
     postController,
-    commentController,
-};
+    commentController
+}

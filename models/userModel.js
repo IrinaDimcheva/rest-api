@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true,
-		minlength: [5, 'Username should be at least 5 characters'],
+		minlength: [3, 'Username should be at least 3 characters'],
 		maxlength: [25, 'Username shouldn\'t exceed 25 characters'],
 		validate: {
 			validator: function (v) {
@@ -39,11 +39,7 @@ const userSchema = new mongoose.Schema({
 		type: ObjectId,
 		ref: 'Post'
 	}],
-	posts: [{
-		type: ObjectId,
-		ref: "Post"
-	}],
-	comments: [{
+	orders: [{
 		type: ObjectId,
 		ref: 'Comment'
 	}]

@@ -1,16 +1,15 @@
 const router = require('express').Router();
-const users = require('./users');
-const posts = require('./posts');
+const user = require('./user');
+const products = require('./products');
 const likes = require('./likes');
 const favorites = require('./favorites');
-const { authController } = require('../controllers');
+const auth = require('./auth');
+// const cart = require('./cart');
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-router.post('/logout', authController.logout);
-
-router.use('/users', users);
-router.use('/posts', posts);
+router.use('/auth', auth);
+router.use('/user', user);
+router.use('/products', products);
+// router.use('/cart', cart);
 router.use('/likes', likes);
 router.use('/favorites', favorites);
 
