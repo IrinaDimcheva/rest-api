@@ -5,18 +5,30 @@ function getPosts(req, res, next) {
 	const title = req.query.title || '';
 	const pageSize = +req.query.pagesize;
 	const currentPage = +req.query.page;
-
-	Promise.all([
-		postModel.find({ title: { $regex: title, $options: 'i' } })
-			.skip(pageSize * (currentPage - 1))
-			.limit(pageSize)
-			.sort({ 'created_at': -1 })
-			.populate('userId'),
-		postModel.find({ title: { $regex: title, $options: 'i' } })
-			.countDocuments()
-	])
-		.then(([posts, postCount]) => res.json({ posts, postCount }))
-		.catch(next);
+	if (title) {
+		Promise.all([
+			postModel.find({ title: { $regex: title, $options: 'i' } })
+				.limit(pageSize)
+				.sort({ 'created_at': -1 })
+				.populate('userId'),
+			postModel.find({ title: { $regex: title, $options: 'i' } })
+				.countDocuments()
+		])
+			.then(([posts, postCount]) => res.json({ posts, postCount }))
+			.catch(next);
+	} else {
+		Promise.all([
+			postModel.find({ title: { $regex: title, $options: 'i' } })
+				.skip(pageSize * (currentPage - 1))
+				.limit(pageSize)
+				.sort({ 'created_at': -1 })
+				.populate('userId'),
+			postModel.find({ title: { $regex: title, $options: 'i' } })
+				.countDocuments()
+		])
+			.then(([posts, postCount]) => res.json({ posts, postCount }))
+			.catch(next);
+	}
 }
 
 function getPost(req, res, next) {
