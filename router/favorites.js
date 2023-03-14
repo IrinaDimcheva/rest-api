@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { auth } = require('../utils');
-const { productController } = require('../controllers');
+const { postController } = require('../controllers');
 
 // middleware that is specific to this router
 
-// router.get('/', auth(), productController.getFavorites);
-// router.post('/add/:productId', auth(), productController.addToFavorites);
-// router.delete('/remove/:productId', auth(), productController.removeFromFavorites);
-
-
+router.get('/', auth(), postController.getFavorites);
+router.post('/add/:postId', auth(), postController.addToFavorites);
+router.delete('/remove/:postId', auth(), postController.removeFromFavorites);
 
 module.exports = router;

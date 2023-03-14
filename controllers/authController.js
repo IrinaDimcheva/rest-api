@@ -24,12 +24,6 @@ function register(req, res, next) {
 			}
 			res.status(201)
 				.send(createdUser);
-			// .send({
-			// 	username: createdUser.username,
-			// 	_id: createdUser._id,
-			// 	email: createdUser.email,
-			// 	admin: createdUser.isAdmin
-			// });
 		})
 		.catch(err => {
 			if (err.name === 'MongoError' && err.code === 11000) {
@@ -68,13 +62,7 @@ function login(req, res, next) {
 				res.cookie(authCookieName, token, { httpOnly: true })
 			}
 			res.status(200)
-				// .send(user);
-				.send({
-					username: user.username,
-					_id: user._id,
-					email: user.email,
-					isAdmin: user.isAdmin
-				});
+				.send(user);
 		})
 		.catch(next);
 }
@@ -89,18 +77,6 @@ function logout(req, res) {
 				.send({ message: 'Logged out!' });
 		})
 		.catch(err => res.send(err));
-}
-
-function checkAuth(req, res, next) {
-	const { userId } = req.user;
-	if (!userId) {
-		return res.status(202).send();
-	}
-	userModel.findById(userId).populate(['cart', 'favorites']).then(user => {
-		return res.send({ username: user.username, _id: user._id, admin: user.admin });
-	}).catch(error => {
-		return res.status(204).send();
-	})
 }
 
 function getProfileInfo(req, res, next) {
@@ -127,7 +103,6 @@ module.exports = {
 	login,
 	register,
 	logout,
-	checkAuth,
 	getProfileInfo,
 	editProfileInfo,
 }

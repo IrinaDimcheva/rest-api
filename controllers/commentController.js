@@ -38,8 +38,6 @@ function createComment(req, res, next) {
 	const { postId } = req.params;
 	const { text } = req.body;
 	const { _id: userId } = req.user;
-	console.log('user', req.user);
-	console.log('text', req.body);
 
 	commentModel.create({ text, userId, postId })
 		.then(comment => {

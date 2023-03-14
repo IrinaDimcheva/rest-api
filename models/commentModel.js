@@ -16,9 +16,9 @@ const commentSchema = new mongoose.Schema({
 		type: ObjectId,
 		ref: "User"
 	},
-	productId: {
+	postId: {
 		type: ObjectId,
-		ref: "Product"
+		ref: "Post"
 	},
 }, { timestamps: { createdAt: 'created_at' } });
 

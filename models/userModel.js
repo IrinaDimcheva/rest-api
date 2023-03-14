@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true,
-		minlength: [3, 'Username should be at least 3 characters'],
+		minlength: [5, 'Username should be at least 5 characters'],
 		maxlength: [25, 'Username shouldn\'t exceed 25 characters'],
 		validate: {
 			validator: function (v) {
@@ -37,14 +37,17 @@ const userSchema = new mongoose.Schema({
 	},
 	favorites: [{
 		type: ObjectId,
-		ref: 'Post'
+		ref: "Post"
 	}],
-	orders: [{
+	posts: [{
 		type: ObjectId,
-		ref: 'Comment'
+		ref: "Post"
+	}],
+	comments: [{
+		type: ObjectId,
+		ref: "Comment"
 	}]
-},
-	{ timestamps: { createdAt: 'created_at' } });
+}, { timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {
 	matchPassword: function (password) {
